@@ -24,6 +24,7 @@
     <ProjectGuid>{7982b9bb-cb39-4941-9182-f254471a00cb}</ProjectGuid>
     <RootNamespace>数据结构</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>DataStructure</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CircleList.cpp" />
+    <ClCompile Include="DulList.cpp" />
     <ClCompile Include="SQList.cpp" />
   </ItemGroup>
   <ItemGroup>
