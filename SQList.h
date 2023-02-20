@@ -12,7 +12,6 @@
 #define OVERFLOW -2
 typedef int Status;
 typedef char ElemType;
-
 typedef struct {
 	int a;
 
@@ -45,6 +44,7 @@ typedef struct DuLNode
 static class SQList
 {
 public:
+
 	//线性表的初始化
 	Status InitList_Sq(SqList& L)
 	{
@@ -84,7 +84,7 @@ public:
 	}
 
 	//找到元素位置
-	int LocateElem(SqList L, ElemType e)
+	static int LocateElem(SqList L, ElemType e)
 	{
 		for (int i = 0; i < L.length; i++)
 		{
@@ -103,5 +103,20 @@ public:
 		L.length--;
 		return OK;
 	}
+
+	//插入元素
+	static Status ListInsert_Sq(SqList& L, int i, ElemType e) {
+		if (i<1 || i>L.length)return ERROR;
+		for (int j = i; j < L.length; j ++)
+		{
+			L.elem[j ] = L.elem[j-1];
+		}
+		L.elem[i - 1] = e;
+		L.length++;
+		return OK;
+	}
+
+
+
 };
 

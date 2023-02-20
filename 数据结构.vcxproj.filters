@@ -24,6 +24,9 @@
     <ClCompile Include="DulList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ListApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SQList.h">
