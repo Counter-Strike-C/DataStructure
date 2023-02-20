@@ -32,5 +32,8 @@
     <ClInclude Include="SQList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
