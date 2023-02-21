@@ -117,7 +117,7 @@ Status Push(LinkStack & S, SElemType e)
 Status Pop(LinkStack& S, SElemType& e)
 {
 	if (S == NULL)return ERROR;
-	e = S->data;
+	e = S->data;  //S指向的是栈顶
 	StackNode * p = S;
 	S = S->next;
 	delete p;
