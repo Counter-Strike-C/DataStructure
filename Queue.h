@@ -16,13 +16,13 @@ typedef struct {
 
 }QElemType;
 
+#pragma region 队列顺序表示
 typedef struct StackNode
 {
-	QElemType *base;
+	QElemType* base;
 	int front;
 	int rear;
 }SqQueue;
-
 
 Status InitQueue(SqQueue& Q)
 {
@@ -47,14 +47,13 @@ Status DeQueue(SqQueue& Q, QElemType& e)
 
 Status EnQueue(SqQueue& Q, QElemType& e)
 {
-	if ((Q.rear+1)%MAXSIZE) return ERROR;
+	if ((Q.rear + 1) % MAXSIZE) return ERROR;
 	Q.base[Q.rear] = e;
 	Q.rear = (Q.rear + 1) % MAXSIZE;
 	return OK;
 }
-
 //取队头元素
-Status GetHead(SqQueue &Q,QElemType &e)
+Status GetHead(SqQueue& Q, QElemType& e)
 {
 	if (Q.front != Q.rear)
 	{
@@ -64,3 +63,67 @@ Status GetHead(SqQueue &Q,QElemType &e)
 	}
 	else return ERROR;
 }
+#pragma endregion
+
+#pragma region 队列链式表示
+typedef struct QNode
+{
+	QElemType data;
+	struct QNode* next;
+}QNode ,*QueuePtr;
+
+typedef struct {
+	QueuePtr front;
+	QueuePtr rear;
+}LinkQueue;
+
+Status InitQueue_L(LinkQueue &Q)
+{
+	Q.front = Q.rear = (QueuePtr)malloc(sizeof(QNode));  //头节点
+	if (!Q.front)exit(OVERFLOW);
+	Q.front->next = NULL;
+	return OK;
+}
+
+Status DestroyQueue(LinkQueue& Q) {
+	while (Q.front)
+	{
+		QueuePtr p = Q.front->next;
+		free(Q.front);
+		Q.front = p;
+	}
+	return OK;
+}
+
+//入列
+Status EnQueue(LinkQueue& Q, QElemType e)
+{
+	QueuePtr p = (QueuePtr)malloc(sizeof(QNode));
+	if (!p)exit(OVERFLOW);
+	p->data = e;
+	p->next = NULL;
+	Q.rear->next = p;
+	Q.rear = p;
+	return OK;
+}
+
+//出列
+Status DeQueue(LinkQueue& Q, QElemType& e)
+{
+	if (Q.front == Q.rear) return ERROR;
+	 QueuePtr p = Q.front->next;
+	 e = p->data; 
+	 Q.front->next = p->next;
+	 if (Q.rear == p)Q.rear = Q.front;
+	 delete p;
+	 return OK;
+}
+
+//队头元素
+Status GetHead(LinkQueue& Q, QElemType& e)
+{
+	if (Q.front == Q.rear)return ERROR;
+	e = Q.front->next->data;
+	return OK;
+}
+#pragma endregion
