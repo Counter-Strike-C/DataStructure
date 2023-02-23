@@ -11,14 +11,11 @@
 #define INFEASIBLE -1
 #define OVERFLOW -2
 typedef int Status;
-typedef char ElemType;
+
 typedef struct {
 	int a;
 
-	bool operator==(const ElemType &e) const
-	{
-		return this->a == e.a;
-	}
+
 }ElemType;
 
 //线性表表示1

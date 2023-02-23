@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="CircleList.cpp" />
     <ClCompile Include="DulList.cpp" />
+    <ClCompile Include="Excute.cpp" />
     <ClCompile Include="ListApp.cpp" />
     <ClCompile Include="SQList.cpp" />
   </ItemGroup>
