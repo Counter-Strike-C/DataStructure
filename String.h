@@ -39,12 +39,31 @@ void get_next(SString T, int(&next)[MAXLEN + 1])
 	}
 }
 
+void GetNextval(SString t, int(&nextval)[MAXLEN + 1])  //由模式串t求出nextval值
+{
+	int j = 0, k = -1;
+	nextval[0] = -1;
+	while (j < t.length)
+	{
+		if (k == -1 || t.ch[j] == t.ch[k])
+		{
+			j++; k++;
+			if (t.ch[j] != t.ch[k])
+				nextval[j] = k;
+			else
+				nextval[j] = nextval[k];
+		}
+		else  k = nextval[k];
+	}
+}
+
 //KMP算法
 int Index_KMP(SString S, SString T)
 {
 
 	int next[MAXLEN + 1];
-	get_next(T, next);
+	//get_next(T, next);
+	GetNextval(T, next);    //改进型取值
 	int i = 0;
 	int j = 0;
 	while (i<S.length && j<T.length)
@@ -62,9 +81,6 @@ int Index_KMP(SString S, SString T)
 	if (j >= T.length)return i - T.length;   //返回模式匹配串的首字符
 	else return -1;     //返回不匹配标志
 }
-
-
-
 #pragma endregion
 
 #pragma region 串的链式存储
