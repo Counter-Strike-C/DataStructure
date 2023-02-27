@@ -147,6 +147,7 @@
     <ClCompile Include="SQList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="SQList.h" />
     <ClInclude Include="Stack.h" />
