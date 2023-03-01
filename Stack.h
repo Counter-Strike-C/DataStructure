@@ -90,7 +90,6 @@ Status Pop(SqStack& S, SElemType e)
 }
 
 #pragma region Á´Õ»²Ù×÷
-
 Status InitStack(LinkStack& S)
 {
 	S = NULL;
@@ -123,4 +122,5 @@ Status Pop(LinkStack& S, SElemType& e)
 	delete p;
 	return OK;
 }
+
 #pragma endregion
