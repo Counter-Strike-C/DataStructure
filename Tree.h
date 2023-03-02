@@ -58,3 +58,10 @@ typedef struct
 	CTBox nodes[MAX_TREE_SIZE];
 	int n, r;//节点数和根节点位置
 }CTree;
+
+//孩子兄弟表示法(二叉树表示法，二叉链表表示法）
+typedef struct CSNode
+{
+	TElemType data;
+	struct CSNode* firstChild, * nextSibling;
+}CSNode,*CSTree;
