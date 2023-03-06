@@ -104,9 +104,10 @@ void CreateHuffmanCode(HuffmanTree& HT, int n)
 			c = f;
 			f = HT[f].parent;
 		}
-		HC[i] = new char[n - start];
+		HC[i] = new char[n - start];    //¸³Öµ¹ş·òÂü±àÂë
 	  
 		strcpy(HC[i], &cd[start]);
+
 	}
 	delete cd;
 }
