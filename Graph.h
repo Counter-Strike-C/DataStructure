@@ -53,6 +53,7 @@ Status CreateUDN(AMGraph& G)
 	}
 }
 
+//找到顶点的位置
 int LocateVex(AMGraph& G, VerTexType& v)
 {
 	int i;
@@ -60,10 +61,23 @@ int LocateVex(AMGraph& G, VerTexType& v)
 		if (v == G.vexs[i])return i;
 	return -1;
 }
+
+void DFS(AMGraph &G, int v)
+{
+	int visited[MAXLEN];
+	cout << v;
+	for (int i = 0; i < G.vexnum; i++)
+	{
+		if ((G.arcvs[v][i] != 0) && (!visited[i]))      //如果v和i是邻接点，如果未访问，则递归调用DFS
+			DFS(G, i);
+	}
+}
+
 #pragma endregion
 
 #pragma region 邻接链表存储结构
 
+//顶点的结构
 typedef struct VNode
 {
 	VerTexType data;
@@ -71,16 +85,59 @@ typedef struct VNode
 }VNode, AdjList[MVNum];
 
 
-//弧边的节点结构
+//弧边的结构
 typedef struct ArcNode
 {
 	int adjvex;         //该边指向的顶点的位置
-	struct ArcNode* nextarc;     //指向吓一条边的指针
+	struct ArcNode* nextarc;     //指向x下一条边的指针
 	OtherInfo info;         //和边相关的信息
 }ArcNode;
-typedef struct OtherInfo
+
+typedef struct OtherInfo   //信息定义
 {
 	int message;
 }OtherInfo;
+
+//图的结构定义
+typedef struct
+{
+	AdjList vertices;       //vertex的复数
+	int vexnum, arcnum;     //图的当前顶点数和弧数
+}ALGraph;
+
+//采用邻接表表示法创建无向网	
+Status CreateUDG(ALGraph& G)   
+{
+	cin >> G.vexnum >> G.arcnum;   //输入总顶点数，总边数
+	for (int i = 0; i < G.vexnum; i++)
+	{
+		cin >> G.vertices[i].data;     //输入顶点值
+		G.vertices[i].firstarc = NULL;
+	}
+	for (int k = 0; k < G.arcnum; ++k)  //输入各边构造邻接表
+	{
+		int v1, v2;
+		cin >> v1 >> v2;
+		int i = LocateVex(G, v1);   
+		int j = LocateVex(G, v2);
+		ArcNode* p1 = new ArcNode;   //生成新的边节点
+		p1->adjvex = j;     //邻接点序号为j
+		p1->nextarc = G.vertices[i].firstarc;
+		G.vertices[i].firstarc = p1;  //头插法建立边界点链表
+		ArcNode* p2 = new ArcNode;
+		p2->adjvex = i;
+		p2->nextarc = G.vertices[j].firstarc;
+		G.vertices[j].firstarc = p2;
+	}
+}
+
+int LocateVex(ALGraph& G, int& v)
+{
+	int i;
+	for (i = 0; i < G.vexnum; i++)
+		if (v == G.vertices[i].data)return i;   //找到指定节点位置
+	return -1;
+}
+
 #pragma endregion
 
