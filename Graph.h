@@ -5,6 +5,7 @@
 #include<stack>
 #include<algorithm>
 #include<queue>
+#include "Queue.h"
 #define MaxInt 32727      //表示极大值
 #define MVNum 100       //最大顶点数
 #define MAX_TREE_SIZE 100
@@ -62,9 +63,11 @@ int LocateVex(AMGraph& G, VerTexType& v)
 	return -1;
 }
 
+//深度优先遍历邻接矩阵
 void DFS(AMGraph &G, int v)
 {
 	int visited[MAXLEN];
+	visited[v] = 1;
 	cout << v;
 	for (int i = 0; i < G.vexnum; i++)
 	{
@@ -139,5 +142,57 @@ int LocateVex(ALGraph& G, int& v)
 	return -1;
 }
 
+//深度优先遍历临界链表
+void DFS(ALGraph* G, int v)
+{
+	ArcNode* p;
+	int w;
+	int visited[MAXLEN];
+	visited[v] = 1;     //置已访问标记
+	cout << v;
+	p = G->vertices[v].firstarc;    //p指向顶点v的第一条边头节点
+
+	while (p != NULL)
+	{
+		w = p->adjvex;
+		if (visited[w] == 0)
+			DFS(G, w);    //如果w顶点未访问，递归访问它
+		p = p->nextarc;   //p指向顶点v的下一条边头节点
+	}
+}
+
+//广度优先遍历
+void BFS(ALGraph* G, int v)
+{
+	queue<int> qu;
+	int w, i;
+	ArcNode* p;
+	//SqQueue qu;    //定义环形队列
+	//InitQueue(qu);
+	int visited[MAXLEN];        //定义顶点访问数组
+	for (i = 0; i < G->vexnum; i++)
+		visited[i] = 0;    //初始化标记数组
+	cout << v;
+	visited[v] = 1;
+	qu.push(v);   //从v开始入队
+
+	while (!qu.empty())  //知道队列为空结束
+	{
+		w = qu.front();
+		qu.pop();
+		p = G->vertices[w].firstarc;   // 取出第一条边
+		while (p!=NULL)
+		{
+			if (visited[p->adjvex] == 0)//如果没有访问到
+			{
+				cout << p->adjvex;
+				visited[p->adjvex] = 1;  //访问了
+				qu.push(p->adjvex);   //将已访问的点入队
+			}
+		}
+	}
+	cout << endl;
+	//算法时间复杂度未O(n+e)
+}
 #pragma endregion
 
