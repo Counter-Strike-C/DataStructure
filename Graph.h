@@ -196,3 +196,44 @@ void BFS(ALGraph* G, int v)
 }
 #pragma endregion
 
+
+#pragma region 最小生成树算法
+
+//Prim算法
+#define INF 32767
+void Prim(AMGraph& G, int v)
+{
+	int lowcost[MAXLEN];
+	int min;
+	int closet[MAXLEN], i, j, k;
+	for (int i = 0; i < G.vexnum; i++)    //给lowcost和closet置初值
+	{
+		lowcost[i] = G.arcvs[v][i];
+		closet[i] = v;
+	}
+
+	for (i = 1; i < G.vexnum; i++)
+	{
+		min = INF;
+		for (j = 0; j < G.vexnum; j++)
+		{
+			if (lowcost[j] != 0 && lowcost[j] < min)
+			{
+				min = lowcost[j];
+				k = j;          //记录距离v最近的顶点编号
+			}
+		}
+
+		cout << closet[k] << "到" << k << "边权为：" << min << endl;
+		lowcost[k] = 0;       //标记k已经加入U
+
+		for(j=0;j<G.vexnum;j++)  //修改数组lowcost和closet
+			if (lowcost[j] != 0 && G.arcvs[k][j] < lowcost[j])
+			{
+				lowcost[j] = G.arcvs[k][j];
+				closet[j] = k;
+			}
+	}
+}
+#pragma endregion
+
