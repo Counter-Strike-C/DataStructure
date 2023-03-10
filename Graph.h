@@ -235,5 +235,59 @@ void Prim(AMGraph& G, int v)
 			}
 	}
 }
+
+
+//Kruskal算法
+typedef struct
+{
+	int u;      //边的起始顶点
+	int v;       //边的终止顶点
+	int w;      //边的权值
+}Edge;
+
+//Kruskal算法
+void Kruskal(AMGraph& G)
+{
+	int i, j, u1, v1, sn1, sn2, k;
+	int vset[MAXLEN];       //连通分量编号
+	Edge E[MAXLEN]; //存放所有边
+	k = 0;         //E的数组下标从0开始
+	for(i=0;i<G.vexnum;i++)     //由G产生的边集E，边集的初始化
+		for(j=0;j<G.vexnum;j++)
+			if (G.arcvs[i][i] != 0 && G.arcvs[i][j] != INF)
+			{
+				E[k].u = i;
+				E[k].v = j;
+				E[k].w = G.arcvs[i][j];
+			}
+	InsertSort(E, G.arcnum);   //排序使用递增排序
+	for (i = 0; i < G.arcnum; i++)  //初始化辅助数据
+	{
+		vset[i] = i;  //连通分量初始化
+	}
+	k = 1;
+	j = 0;
+	while (k < G.arcnum)   //生成的边数小于n时循环
+	{
+		u1 = E[j].u;   //取一条边的头尾顶点
+		v1 = E[j].v;
+		sn1 = vset[u1];
+		sn2 = vset[v1];      //得到两个顶点所属的集合编号
+		if (sn1 != sn2)      //两顶点属于不同的集合
+		{
+			cout << u1 << " " << v1 << " " << E[j].w << endl;
+			k++;    //生成边数增1
+			for (i = 0; i < G.arcnum; i++)  //两个集合同意编号
+				if (vset[i] == sn2)   //集合编号为sn2的改为sn1
+					vset[i] = sn1;
+		}
+		j++;
+	}
+}
+
+void InsertSort(Edge* E, int v)
+{
+
+}
 #pragma endregion
 
