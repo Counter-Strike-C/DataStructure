@@ -260,7 +260,8 @@ void Kruskal(AMGraph& G)
 				E[k].v = j;
 				E[k].w = G.arcvs[i][j];
 			}
-	InsertSort(E, G.arcnum);   //排序使用递增排序
+	InsertSort(E, G.arcnum);   //排序使用递增排序 O(n^2)
+	//HeapSort(E, g.e);    //堆排序O(eloge)
 	for (i = 0; i < G.arcnum; i++)  //初始化辅助数据
 	{
 		vset[i] = i;  //连通分量初始化
@@ -286,6 +287,50 @@ void Kruskal(AMGraph& G)
 }
 
 void InsertSort(Edge* E, int v)
+{
+
+}
+
+//dijkstra算法,v为源点编号
+void Dijkstra(AMGraph G,int v)
+{
+	int dist[MAXLEN], path[MAXLEN];
+	int s[MAXLEN];
+	int mindis, i, j, u;
+	for (i = 0; i < G.arcnum; i++)
+	{
+		dist[i] = G.arcvs[v][i];  //距离初始化
+		s[i] = 0;        //s[]置空
+		if (G.arcvs[v][i] < INF)     //路径初始化
+			path[i] = v;         //顶点v到i有边时
+		else
+			path[i] = -1;       //顶点v到i没边时
+	}
+	s[v] = 1;     //源点v放入s中
+
+	for (i = 0; i < G.arcnum; i++)     //循环n-1次
+	{
+		mindis = INF;
+		for(j=0;j<G.arcnum;j++)
+			if (s[j] == 0 && dist[j] < mindis)
+			{
+				u = j;
+				mindis = dist[j];
+			}
+		s[u] = 1;
+		for(j=0;j<G.arcnum;j++)
+			if(s[j] == 0)
+				if (G.arcvs[u][j] < INF && dist[u] + G.arcvs[u][j] < dist[j])
+				{
+					dist[j] = dist[u] + G.arcvs[u][j];
+					path[j] = u;
+				}
+	}
+	Dispath(dist, path, s, G.arcnum, v);       //输出最短路径
+}
+
+//输出最短路径
+void Dispath(int* dis, int* path, int* s, int n, int v)
 {
 
 }
