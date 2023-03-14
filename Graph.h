@@ -297,7 +297,7 @@ void Dijkstra(AMGraph G,int v)
 	int dist[MAXLEN], path[MAXLEN];
 	int s[MAXLEN];
 	int mindis, i, j, u;
-	for (i = 0; i < G.arcnum; i++)
+	for (i = 0; i < G.vexnum; i++)
 	{
 		dist[i] = G.arcvs[v][i];  //距离初始化
 		s[i] = 0;        //s[]置空
@@ -308,17 +308,17 @@ void Dijkstra(AMGraph G,int v)
 	}
 	s[v] = 1;     //源点v放入s中
 
-	for (i = 0; i < G.arcnum; i++)     //循环n-1次
+	for (i = 0; i < G.vexnum; i++)     //循环n-1次，逐个将u放入s中
 	{
 		mindis = INF;
-		for(j=0;j<G.arcnum;j++)
+		for(j=0;j<G.vexnum;j++)
 			if (s[j] == 0 && dist[j] < mindis)
 			{
 				u = j;
 				mindis = dist[j];
 			}
-		s[u] = 1;
-		for(j=0;j<G.arcnum;j++)
+		s[u] = 1;		//顶点u加入到s
+		for(j=0;j<G.vexnum;j++)      //修改不在s中的顶点距离
 			if(s[j] == 0)
 				if (G.arcvs[u][j] < INF && dist[u] + G.arcvs[u][j] < dist[j])
 				{
@@ -329,8 +329,10 @@ void Dijkstra(AMGraph G,int v)
 	Dispath(dist, path, s, G.arcnum, v);       //输出最短路径
 }
 
+
+
 //输出最短路径
-void Dispath(int* dis, int* path, int* s, int n, int v)
+void Dispath(int * dis, int * path, int * s, int n, int v)
 {
 
 }
