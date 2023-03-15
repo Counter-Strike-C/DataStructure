@@ -332,9 +332,36 @@ void Dijkstra(AMGraph G,int v)
 
 
 //输出最短路径
-void Dispath(int * dis, int * path, int * s, int n, int v)
+void Dispath(int * dis, int * path, int  * s, int n, int v)
 {
 
+}
+
+//Floyd算法
+void Floyd(AMGraph& G)
+{
+
+	int A[MAXLEN][MAXLEN];   //建立A数组
+	int path[MAXLEN][MAXLEN];     //建立path数组
+	int i, j, k;
+	for(i=0;i<G.vexnum;i++)
+		for (j = 0; j < G.vexnum; j++)
+		{
+			A[i][j] = G.arcvs[i][j];    //初始化路径
+			if (i != j && G.arcvs[i][j] < INF)
+				path[i][j] = i;            //i和j顶点之间有一条边时
+			else
+				path[i][j] = -1;    //i和j之间没有边时
+		}
+
+	for(k=0;k<G.vexnum;k++)
+		for(i=0;i<G.vexnum;i++)
+			for(j=0;j<G.vexnum;j++)
+				if (A[i][j] > A[i][k] + A[k][j])  //找到更短路径
+				{
+					A[i][j] = A[i][k] + A[k][j];     //修改路径长度
+					path[i][j] = path[k][j];    //修改最短路径为经过顶点k
+				}
 }
 #pragma endregion
 
