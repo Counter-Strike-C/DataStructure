@@ -347,7 +347,7 @@ void Floyd(AMGraph& G)
 	for(i=0;i<G.vexnum;i++)
 		for (j = 0; j < G.vexnum; j++)
 		{
-			A[i][j] = G.arcvs[i][j];    //初始化路径
+			A[i][j] = G.arcvs[i][j];    //初始化路径 
 			if (i != j && G.arcvs[i][j] < INF)
 				path[i][j] = i;            //i和j顶点之间有一条边时
 			else
@@ -363,5 +363,7 @@ void Floyd(AMGraph& G)
 					path[i][j] = path[k][j];    //修改最短路径为经过顶点k
 				}
 }
+
+
 #pragma endregion
 
