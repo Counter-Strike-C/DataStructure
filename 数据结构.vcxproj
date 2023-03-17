@@ -153,6 +153,7 @@
     <ClInclude Include="HuffmanTree.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Search.h" />
+    <ClInclude Include="InsertSort.h" />
     <ClInclude Include="SQList.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="String.h" />
