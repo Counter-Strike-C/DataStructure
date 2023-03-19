@@ -31,7 +31,7 @@ void InsertSort(RecType R[], int n)
 	RecType tmp;
 	for (i = 0; i < n; i++)
 	{
-		if (R[i].key < R[i - 1].key)   //反序时
+		if (R[i].key < R[i - 1].key)   //反序时  
 		{
 			tmp = R[i];
 			j = i - 1;
@@ -69,4 +69,29 @@ void BinInsertSort(RecType R[], int n)
 				R[j+1] = R[j];
 		}
 	}
+}
+
+//希尔排序，递增
+void ShellSort(RecType R[], int n)
+{
+	int i, j, d;
+	RecType tmp;
+	d = n / 2;
+	while (d > 0)
+	{
+		for (i = d; i < n; i++)
+		{
+			//相隔d位置的元素组直接插入排序
+			tmp = R[i];
+			j = i - d;
+			while (j >= 0 && tmp.key < R[j].key)  //如果tmp小于上一组位置
+			{
+				R[j + d] = R[j];  //上一组的值等于下一组
+				j = j - d;  //下一组
+			}
+			R[j + d] = tmp;//交换出来
+		}
+		d = d / 2;
+	}
+	
 }

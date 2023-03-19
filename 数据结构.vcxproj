@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="BSTree.h" />
+    <ClInclude Include="ExchangeSort.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="HuffmanTree.h" />
     <ClInclude Include="Queue.h" />
