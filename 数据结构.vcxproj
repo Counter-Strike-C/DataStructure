@@ -144,6 +144,7 @@
     <ClCompile Include="DulList.cpp" />
     <ClCompile Include="Excute.cpp" />
     <ClCompile Include="ListApp.cpp" />
+    <ClCompile Include="SelectionSort.h" />
     <ClCompile Include="SQList.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +153,9 @@
     <ClInclude Include="ExchangeSort.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="HuffmanTree.h" />
+    <ClInclude Include="MergeSort.h" />
     <ClInclude Include="Queue.h" />
+    <ClInclude Include="RadixSort.h" />
     <ClInclude Include="Search.h" />
     <ClInclude Include="InsertSort.h" />
     <ClInclude Include="SQList.h" />

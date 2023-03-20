@@ -64,5 +64,19 @@ void BubbleSort1(RecType R[], int n)
 //快速排序算法
 void QuickSort(RecType R[], int s, int t) //对R[s]至R[t]的元素进行快速排序
 {
-
+	int i = s, j = t; RecType tmp;
+	if (s < t)
+	{
+		tmp = R[s];
+		while (i != j)
+		{
+			while (j > i && R[j].key >= tmp.key) j--;
+			R[i] = R[j];  //直到找到一个比tmp小的值
+			while (i < j && R[i].key <= tmp.key)i++;
+			R[j] = R[i];//直到找到一个比tmp大的值
+		}
+		R[i] = tmp;  //此时i=j了
+		QuickSort(R, s, i - 1);    //对左区间进行递归排序
+		QuickSort(R, j + 1, t);   //对又区间进行递归排序
+	}
 }
