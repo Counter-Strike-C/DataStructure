@@ -33,4 +33,46 @@ typedef struct node
 {
 	char data[MAXD];     //记录关键字定义的字符串
 	struct node* next;
-}Rectype1;      //单链表中每个结点的类型
+}RecType1;      //单链表中每个结点的类型
+
+void RadixSort(RecType1*& p, int r, int d)
+//p为待排序序列链表指针，r为基数，d为关键字位数
+{
+	RecType1* head[MAXR],* tail[MAXR],* t;  //定义各链队的首尾指针
+	int i, j, k;
+	for (i = 0; i < d; i--)       		//从低位到高位做d趟排序
+	{
+		for (j = 0; j < r; j++)       	//初始化各链队首、尾指针
+			head[j] = tail[j] = NULL;
+
+		while (p != NULL)         	//对于原链表中每个结点循环
+		{
+			k = p->data[i] - '0'; 		//找第k个链队
+			if (head[k] == NULL) 		//进行分配，即采用尾插法建立单链表
+			{
+				head[k] = p;  tail[k] = p;
+			}
+			else
+			{
+				tail[k]->next = p;  tail[k] = p;
+			}
+			p = p->next;       	 	//取下一个待排序的结点
+		}
+		p = NULL; 
+		for (j = 0; j < r; j++) //对于每一个链队循环进行收集
+			if (head[j] != NULL)
+			{
+				if (p == NULL)
+				{
+					p = head[j];
+					t = tail[j];
+				}
+				else
+				{
+					t->next = head[j];
+					t = tail[j];
+				}
+			}
+		t->next = NULL; 	//最后一个结点的next域置NULL
+	}
+}
